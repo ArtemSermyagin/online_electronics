@@ -14,6 +14,10 @@ class Network(models.Model):
     liability = models.FloatField(verbose_name='Задолженность')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
 
+    class Meta:
+        verbose_name = 'Сеть'
+        verbose_name_plural = 'Сети'
+
     def __str__(self):
         return f"{self.name} {self.liability} {self.created_at}"
 
@@ -26,6 +30,10 @@ class Contact(models.Model):
     house_number = models.CharField(max_length=10, verbose_name='Номер дома')
     network = models.ForeignKey(Network, on_delete=models.CASCADE, related_name='contacts', verbose_name='Поставщик')
 
+    class Meta:
+        verbose_name = 'Контакт'
+        verbose_name_plural = 'Контакты'
+
     def __str__(self):
         return f"{self.country} {self.city} {self.street} {self.network.id}"
 
@@ -35,6 +43,10 @@ class Product(models.Model):
     model = models.CharField(max_length=200, verbose_name='Модель')
     launch_date = models.DateTimeField(verbose_name='Дата запуска продукта')
     network = models.ForeignKey(Network, on_delete=models.CASCADE, related_name='products', verbose_name='Поставщик')
+
+    class Meta:
+        verbose_name = 'Продукт'
+        verbose_name_plural = 'Продукты'
 
     def __str__(self):
         return f"{self.name} {self.model} {self.network.id}"
