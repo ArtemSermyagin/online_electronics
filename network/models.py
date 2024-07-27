@@ -19,23 +19,45 @@ class Network(models.Model):
         verbose_name_plural = 'Сети'
 
     def __str__(self):
-        return f"{self.name} {self.liability} {self.created_at}"
+        return f"{self.name} {self.liability}"
+
+
+class Country(models.Model):
+    name = models.CharField(max_length=50, unique=True, verbose_name='Название')
+
+    class Meta:
+        verbose_name = 'Страна'
+        verbose_name_plural = 'Страны'
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+class City(models.Model):
+    name = models.CharField(max_length=50, unique=True, verbose_name='Название')
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, related_name='cities', verbose_name='Страна')
+
+    class Meta:
+        verbose_name = 'Город'
+        verbose_name_plural = 'Города'
+
+    def __str__(self):
+        return f"{self.name} {self.country}"
 
 
 class Contact(models.Model):
     email = models.EmailField(verbose_name='Почта')
-    country = models.CharField(max_length=50, verbose_name='Страна')
-    city = models.CharField(max_length=50, verbose_name='Город')
     street = models.CharField(max_length=100, verbose_name='Улица')
     house_number = models.CharField(max_length=10, verbose_name='Номер дома')
     network = models.ForeignKey(Network, on_delete=models.CASCADE, related_name='contacts', verbose_name='Поставщик')
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='contacts', verbose_name='Город')
 
     class Meta:
         verbose_name = 'Контакт'
         verbose_name_plural = 'Контакты'
 
     def __str__(self):
-        return f"{self.country} {self.city} {self.street} {self.network.id}"
+        return f"{self.email} {self.city} {self.street} {self.network.id}"
 
 
 class Product(models.Model):
