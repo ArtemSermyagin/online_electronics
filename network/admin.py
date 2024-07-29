@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import Network, Contact, Product, Country, City
 from django.utils.html import format_html
 
+
 class ContactInline(admin.TabularInline):
     model = Contact
     extra = 1
@@ -47,6 +48,7 @@ class NetworkAdmin(admin.ModelAdmin):
         )
 
     link_network.short_description = "Поставщик"
+
 
 @admin.register(Country)
 class CountryAdmin(admin.ModelAdmin):

@@ -11,7 +11,7 @@ class Network(models.Model):
         blank=True,
         verbose_name='Поставщик'
     )
-    liability = models.FloatField(verbose_name='Задолженность')
+    liability = models.FloatField(default=0.0, verbose_name='Задолженность')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
 
     class Meta:
